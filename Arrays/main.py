@@ -66,6 +66,77 @@ class Permutation(Solver):
         ]
 
 
+class Urlfy(Solver):
+
+    def solve(self, string):
+        ans = ''
+        sub = ''
+
+        for char in string:
+            if char != ' ':
+                sub += char
+            elif sub == '':
+                continue
+            else:
+                ans += f'{sub}%20'
+                sub = ''
+
+        return ans + sub
+
+    def __init__(self):
+        super().__init__()
+        self.test_cases = [
+            ({'string': 'mr jam'}, 'mr%20jam'),
+            ({'string': 'mr   jam'}, 'mr%20jam'),
+            ({'string': 'mr   jam '}, 'mr%20jam%20'),
+            ({'string': 'mr   jam is me'}, 'mr%20jam%20is%20me'),
+            ({'string': 'mrjam'}, 'mrjam')
+        ]
+
+
+class PalindromePermutation(Solver):
+
+    def solve(self, string):
+        """Check if string is a permutation of a palindrome"""
+
+        counter = self.count_chars(string)
+
+        if len(string) % 2 == 0:
+            for char in counter:
+                if counter[char] % 2 == 1:
+                    return False
+        else:
+            flag = False
+            for char in counter:
+                if counter[char] % 2 == 1 and not flag:
+                    flag = True
+                elif counter[char] % 2 == 1 and flag:
+                    return False
+        return True
+
+    def __init__(self):
+        super().__init__()
+        self.test_cases = [
+            ({'string': 'anna'}, True),
+            ({'string': 'nana'}, True),
+            ({'string': 'anpna'}, True),
+            ({'string': 'nanaz'}, True),
+            ({'string': 'fake'}, False),
+        ]
+
+    @staticmethod
+    def count_chars(string):
+        from collections import defaultdict
+
+        counter = defaultdict(int)
+        for char in string:
+            counter[char] += 1
+
+        return counter
+
+
 if __name__ == '__main__':
     UniqueChar().run_cases()
     Permutation().run_cases()
+    Urlfy().run_cases()
+    PalindromePermutation().run_cases()

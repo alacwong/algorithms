@@ -11,7 +11,6 @@ class Solver(ABC):
         pass
 
     def run_cases(self):
-
         print(f'Running tests for {self.__class__.__name__}')
 
         for case, ans in self.test_cases:
@@ -20,3 +19,5 @@ class Solver(ABC):
                 print('Pass')
             else:
                 print(f'Fail: Expected {ans} got {my_ans}')
+
+        print('*' * len(f'Running tests for {self.__class__.__name__}'))
