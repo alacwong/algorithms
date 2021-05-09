@@ -202,6 +202,43 @@ class StringCompression(Solver):
         ]
 
 
+class RotateMatrix(Solver):
+
+    def solve(self, matrix):
+        """
+        Rotate a matrix
+        [[1 0]  -> [[1 1]
+         [1 1]]     [1 0]]
+        """
+
+        if len(matrix) == 0:
+            return []
+
+        ans = []
+        n = len(matrix)
+        for i in range(n):
+            row = []
+            for j in range(n):
+                row.append(matrix[j][i])
+            ans.append(row)
+        return ans
+
+
+class ZeroMatrix(Solver):
+
+    def solve(self, matrix):
+        """Zero out rows with zeros"""
+        ans = []
+        for index, row in enumerate(matrix):
+            for cell in row:
+                if cell == 0:
+                    ans.append([0] * len(matrix))
+                    break
+            if len(ans) == index:
+                ans.append(row[:])
+        return ans
+
+
 if __name__ == '__main__':
     UniqueChar().run_cases()
     Permutation().run_cases()
