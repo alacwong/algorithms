@@ -135,8 +135,77 @@ class PalindromePermutation(Solver):
         return counter
 
 
+class OneEditAway(Solver):
+
+    def solve(self, s1: str, s2: str):
+        """
+        Determine if s1 is one edit away form s2
+        """
+
+        diff = 0
+        if len(s1) == len(s2):  # equal case, check that str diff is < 1
+            for i in range(len(s1)):
+                if s1[i] != s2[i]:
+                    diff += 1
+
+        elif len(s1) == len(s2) + 1 or len(s1) + 1 == len(s2):  # case, str length differ by 1
+            if len(s2) > len(s1):
+                s1, s2 = s2, s1
+            i, j = 0, 0
+
+            while i < len(s1) and j < len(s2):
+                if s1[i] != s2[j]:
+                    diff += 1
+                    i += 1
+                else:
+                    i, j = i + 1, j + 1
+        else:
+            return False
+
+        return diff < 2
+
+    def __init__(self):
+        super().__init__()
+        self.test_cases = [
+            ({'s1': 'pale', 's2': 'ple'}, True),
+            ({'s1': 'page', 's2': 'pale'}, True),
+            ({'s1': 'pale', 's2': 'pale'}, True),
+            ({'s1': 'pale', 's2': 'qwifqwfiqw'}, False),
+            ({'s1': 'pale', 's2': 'pls'}, False),
+        ]
+
+
+class StringCompression(Solver):
+
+    def solve(self, s: str):
+        """ Basic string compression
+        aabbssssf -> a2b2s4f1
+        """
+        count, prev, ans = 0, '', ''
+        for char in s:
+            if char == prev:
+                count += 1
+            else:
+                if count > 0:
+                    ans += f'{prev}{count}'
+                prev, count = char, 1
+        if count:
+            ans += f'{prev}{count}'
+        return ans if len(ans) < len(s) else s
+
+    def __init__(self):
+        super().__init__()
+        self.test_cases = [
+            ({'s': 'aabbssssf'}, 'a2b2s4f1'),
+            ({'s': 'abcde'}, 'abcde'),
+            ({'s': ''}, '')
+        ]
+
+
 if __name__ == '__main__':
     UniqueChar().run_cases()
     Permutation().run_cases()
     Urlfy().run_cases()
     PalindromePermutation().run_cases()
+    OneEditAway().run_cases()
+    StringCompression().run_cases()
