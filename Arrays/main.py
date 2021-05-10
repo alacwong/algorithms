@@ -1,7 +1,7 @@
 """
 Algorithm practice for strings
 """
-from Solver import Solver
+from solver import Solver
 
 
 class UniqueChar(Solver):
