@@ -57,6 +57,40 @@ class KtoN(Solver):
         ]
 
 
+class RemoveMiddle(Solver):
+
+    def solve(self, node: Node):
+
+        if node.next:
+            copied_node = node.next
+            node.val, node.next = copied_node.val, copied_node.next
+            copied_node.next = None
+        else:
+            node = None
+
+
+class PartitionNode(Solver):
+
+    def solve(self, head: Node, node: Node):
+
+        new_head = node
+        new_tail = node
+        current = head
+
+        while current is not None:
+            current_copy = Node(current.val)
+            if current < node:
+                new_head, new_head.next = current_copy, new_head
+            else:
+                new_tail.next = current_copy
+                new_tail = current_copy
+
+            current = current.next
+
+        return new_head
+
+
+
 if __name__ == '__main__':
     RemoveDuplicates().run_cases()
     KtoN().run_cases()

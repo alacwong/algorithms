@@ -2,10 +2,12 @@
 Node class definition for linked list
 """
 
+from __future__ import annotations
+
 
 class Node:
 
-    def __init__(self, val=0, _next=None):
+    def __init__(self, val=0, _next: Node = None):
         self.val = val
         self.next = _next
 
