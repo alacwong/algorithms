@@ -41,7 +41,8 @@ def fib_tabulation(n: int) -> int:
 
 def fib_tabulation_cs(n: int) -> int:
     """
-    precodition n > 0
+    @author Raymond Chen / cheryl
+    precondition n > 0
     :param n:
     :return:
     """
@@ -52,10 +53,9 @@ def fib_tabulation_cs(n: int) -> int:
         return 1
     else:
         i, j = 1, 1
-
-
-
-    return 0
+        for index in range(1, n):
+            i, j, = j, i + j
+    return j
 
 
 def compare_speed(n: int, f1, f2):
@@ -81,4 +81,7 @@ def speed(n: int, f):
 
 
 if __name__ == '__main__':
-    speed(30, fib_memo)
+    for num in range(1, 10):
+        print(fib_tabulation_cs(num))
+
+
