@@ -33,5 +33,4 @@ def solve(queries, a, b):
             diff[i] = x
         else:
             _, x = query
-
             # Consolidate queries

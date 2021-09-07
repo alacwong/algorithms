@@ -1,3 +1,6 @@
+import random
+
+
 def solve(preferences):
     n = len(preferences[0])
     friends = [set(), set(), set()]
@@ -32,15 +35,43 @@ def solve(preferences):
     return ans
 
 
+def get_tests(num_tests, n):
+    tests = []
+
+    for _ in range(num_tests):
+        preferences = [
+            [i + 1 for i in range(n)] for _ in range(3)
+        ]
+
+        for i in range(3):
+            random.shuffle(preferences[i])
+
+        tests.append(preferences)
+
+    return tests
+
+
+def brute_force(preferences):
+    ans = -1
+
+    for i, p in enumerate(preferences[0]):
+        x, y = preferences[1].index(p), preferences[2].index(p)
+        if len(set(preferences[preferences[1][:x]] + preferences[2][:y])) == x + y:
+            return p
+
+    return ans
+
+
+def format_test(test):
+    for i in range(3):
+        print(test[i])
+
+
 if __name__ == '__main__':
 
-    tests = [
-        [
-            [1, 2, 3, 4],
-            [3, 1, 2, 4],
-            [1, 2, 4, 3]
-        ]
-    ]
+    tests = get_tests(20, 10)
 
     for test in tests:
+        format_test(test)
         print(solve(test))
+
