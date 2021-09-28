@@ -34,3 +34,4 @@ def solve(queries, a, b):
         else:
             _, x = query
             # Consolidate queries
+
