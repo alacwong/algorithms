@@ -35,47 +35,69 @@ def brute_force(arr):
 
 
 def count_inversions(arr):
-    return merge_sort(arr, 0, len(arr))
+    inversions = merge_sort(arr, 0, len(arr))
+    print(arr)
+    return inversions
 
 
 def merge_sort(arr, l, r):
+    """Recursively merge sort while counting inversions"""
+    # Base case
     if l + 1 == r:
         return 0
     else:
         mid = (l + r) // 2
-
         inversions = merge_sort(arr, l, mid) + merge_sort(arr, mid, r)
-
-        new = []
 
         i, j = l, mid
 
-        # [1, 3, 5] [2, 4,6]
-
+        # 2 pointer, counter inversions
         while i < mid and j < r:
             if arr[i] <= arr[j]:
-                new.append(arr[i])
                 i += 1
             else:
                 inversions += mid - i
-                new.append(arr[j])
                 j += 1
 
-        while i < mid:
+        merge(arr, l, r)
+        return inversions
+
+
+def merge(arr, l, r):
+    """
+    Merge 2 sorted arrays (merge sort helper) in place
+    """
+    mid = (l + r) // 2
+    i, j = l, mid
+    new = []
+
+    # 2 pointer sort 2 sorted arrays
+    while i < mid and j < r:
+        if arr[i] <= arr[j]:
             new.append(arr[i])
             i += 1
-
-        while j < r:
+        else:
             new.append(arr[j])
             j += 1
 
-        for i in range(l, r):
-            arr[i] = new[i - l]
+    # extend residuals
+    while i < mid:
+        new.append(arr[i])
+        i += 1
 
-        return inversions
+    while j < r:
+        new.append(arr[j])
+        j += 1
+
+    # Update original array in place
+    for i in range(l, r):
+        arr[i] = new[i - l]
 
 
 if __name__ == '__main__':
     test = [8, 4, 2, 1, 10, 12, 3, 4, 19, 7, 12]
+    test2 = [3] * 4 + [1] * 3 + [2] * 3
     print(brute_force(test))
     print(count_inversions(test))
+    print(brute_force(test2))
+    print(count_inversions(test2))

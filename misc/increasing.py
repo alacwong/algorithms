@@ -26,3 +26,12 @@ def increasing(numbers, i):
             return False
 
     return True
+
+"""
+if n is small:
+    brute force
+else:
+    split n into smaller inputs (divide)
+    recursively solve them
+    combine solution (conquer)
+"""

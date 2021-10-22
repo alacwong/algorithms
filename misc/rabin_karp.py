@@ -1,6 +1,6 @@
 def search(s: str, t: str) -> bool:
     """
-    check if t is a substring of t in O(s + t) time
+    check if t is a substring of t in O(s + t) time O(st) on bad hash
     """
 
     t_hash = sum(list(map(ord, t)))
